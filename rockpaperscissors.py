@@ -22,7 +22,7 @@ while play != "N":
         p1 = str(input("P1 (try again retard! - [R, P, S]): "))
     p2 = str(input("P2: "))
     while p2 not in char_points.keys():
-        p2 = str(input("P1 (try again retard! - [R, P, S]): "))
+        p2 = str(input("P2 (try again retard! - [R, P, S]): "))
     p1_index = char_points.get(p1)
     p2_index = char_points.get(p2)
     payout = payout_matrix[p1_index][p2_index]
