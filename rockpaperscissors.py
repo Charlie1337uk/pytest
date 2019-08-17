@@ -1,4 +1,14 @@
-char_points = {"R": 1, "P": 2, "S": 3}
+p1_win = (1,0)
+p2_win = (0,1)
+draw = (0,0)
+char_points = {"R": 0, "P": 1, "S": 2}
+
+payout_matrix = [
+    [draw, p2_win, p1_win],
+    [p1_win, draw, p2_win],
+    [p2_win, p1_win, draw]
+]
+
 sp1 = 0
 sp2 = 0
 score = [int(sp1), int(sp2)]
@@ -6,47 +16,25 @@ print("ROCK PAPER SCISSORS")
 play = input("Play? - Y/N: ")
 
 while play != "N":
-    play1 = "Y"
-    while play1 != "N":
-        print("Choose a play//R, P, S//")
-        p1 = str(input("P1: "))
-        p2 = str(input("P2: "))
-        p11 = char_points.get(p1)
-        p12 = char_points.get(p2)
+    print("Choose a play [R, P, S]")
+    p1 = str(input("P1: "))
+    while p1 not in char_points.keys():
+        p1 = str(input("P1 (try again retard! - [R, P, S]): "))
+    p2 = str(input("P2: "))
+    while p2 not in char_points.keys():
+        p2 = str(input("P1 (try again retard! - [R, P, S]): "))
+    p1_index = char_points.get(p1)
+    p2_index = char_points.get(p2)
+    payout = payout_matrix[p1_index][p2_index]
+    if payout == draw:
+        print("Draw!")
+    elif payout == p1_win:
+        print("Player 1 Wins!")
+    elif payout == p2_win:
+        print("Player 2 Wins!")
+    sp1 = sp1 + payout[0]
+    sp2 = sp2 + payout[1]
+    print("Scores - P1: {sp1}, P2: {sp2}".format(sp1=sp1, sp2=sp2))
+    play = input("Play again? - Y/N: ")
 
-        if p11 == p12:
-            print("Draw!")
-        else:
-            if p11 + p12 == 3 and p11 > p12:
-                print("Player 1 Wins!")
-                sp1 += 1
-                print(str(score))
-            else:
-                if p11 + p12 == 3 and p11 < p12:
-                    print("Player 2 Wins!")
-                    sp2 += 1
-                    print(str(score))
-            if p11 + p12 == 4 and p11 > p12:
-                print("Player 2 Wins!")
-                sp2 += 1
-                print(str(score))
-            else:
-                if p11 + p12 == 4 and p11 < p12:
-                    print("Player 1 Wins!")
-                    sp1 += 1
-                    print(str(score))
-            if p11 + p12 == 5 and p11 > p12:
-                print("Player 1 Wins!")
-                sp1 += 1
-                print(str(score))
-            else:
-                if p11 + p12 == 5 and p11 < p12:
-                    print("Player 2 Wins!")
-                    sp2 += 1
-                    print(str(score))
-        play1 = input("Play Again? - Y/N: ")
-
-        while quit != "sore loser":
-            quit = input("Type sore loser to rage quit: ")
-            quit = input("Try again loser: ")
-            print("/Run/Self_Destruct - Y/N \n 5 \n 4 \n 3 \n 2\n 1")
+print("Goodbye!")
